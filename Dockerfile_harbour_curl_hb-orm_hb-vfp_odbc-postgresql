@@ -9,6 +9,9 @@ ENV InDocker=True
 
 RUN apt-get update && apt-get install -y apt-utils
 
+# Run update again to work around git install failure introduced around April 2023
+RUN apt-get update
+
 RUN apt-get install -y \
         git \
         build-essential \
@@ -17,10 +20,15 @@ RUN apt-get install -y \
         wget \
         psmisc \
         libcurl4-openssl-dev \
-        unixodbc-dev \
-        odbc-postgresql
+        unixodbc-dev
 
 RUN apt-get update && apt-get -y upgrade
+
+# Had to run the following dependency install separatly
+RUN apt-get install -y libssl-dev
+
+# install Postgresql odbc driver
+RUN apt-get -y install odbc-postgresql
 
 # install harbour from src
 RUN mkdir /src
@@ -29,6 +37,7 @@ RUN git clone --branch master https://github.com/harbour/core.git harbour
 WORKDIR /src/harbour
 
 ENV HB_WITH_CURL=/usr/include/x86_64-linux-gnu/
+ENV HB_WITH_OPENSSL=/usr/include/openssl/
 
 # Will request the make app to use up to 8 core.
 RUN make -j 8 install
@@ -40,6 +49,10 @@ RUN ldconfig
 WORKDIR /src
 RUN git clone https://github.com/EricLendvai/Harbour_VFP/
 RUN git clone https://github.com/EricLendvai/Harbour_ORM/
+
+#Will be used for future web apps builds and when building hb_orm
+ENV HB_VFP_ROOT /src/Harbour_VFP/
+ENV HB_ORM_ROOT /src/Harbour_ORM/
 
 ENV HB_COMPILER gcc
 
@@ -65,7 +78,3 @@ RUN ./BuildLIB.sh
 WORKDIR /src/Harbour_ORM
 ENV LIBName hb_orm
 RUN ./BuildLIB.sh
-
-#Could be used for future web apps builds
-ENV HB_VFP_ROOT /src/Harbour_VFP/
-ENV HB_ORM_ROOT /src/Harbour_ORM/
