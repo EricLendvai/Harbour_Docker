@@ -11,9 +11,9 @@ Call "docker build" with multiple tags to create a Docker image and tag as "late
 
     docker build . -f Dockerfile_harbour_basic -t ericlendvai/harbour_basic:latest -t ericlendvai/harbour_basic:2023_09_09_001 --no-cache   
 
-    docker build . -f Dockerfile_harbour_curl_hb-orm_hb-vfp_hb-fastcgi_apache_odbc-postgresql -t ericlendvai/harbour_curl_hb-orm_hb-vfp_hb-fastcgi_apache_odbc-postgresql:latest -t ericlendvai/harbour_curl_hb-orm_hb-vfp_hb-fastcgi_apache_odbc-postgresql:2023_09_09_001 --no-cache   
+    docker build . -f Dockerfile_harbour_curl_hb-orm_hb-el_hb-fastcgi_apache_odbc-postgresql -t ericlendvai/harbour_curl_hb-orm_hb-el_hb-fastcgi_apache_odbc-postgresql:latest -t ericlendvai/harbour_curl_hb-orm_hb-el_hb-fastcgi_apache_odbc-postgresql:2023_09_09_001 --no-cache   
 
-    docker build . -f Dockerfile_harbour_curl_hb-orm_hb-vfp_odbc-postgresql -t ericlendvai/harbour_curl_hb-orm_hb-vfp_odbc-postgresql:latest -t ericlendvai/harbour_curl_hb-orm_hb-vfp_odbc-postgresql:2023_09_09_001 --no-cache   
+    docker build . -f Dockerfile_harbour_curl_hb-orm_hb-el_odbc-postgresql -t ericlendvai/harbour_curl_hb-orm_hb-el_odbc-postgresql:latest -t ericlendvai/harbour_curl_hb-orm_hb-el_odbc-postgresql:2023_09_09_001 --no-cache   
 
 ## docker push - Info only provided to help you setup and maintain your own docker hub repos
 
@@ -26,9 +26,9 @@ Don't use "--all-tags" option the since even existing images will be re-dated as
     docker push ericlendvai/harbour_basic:2023_09_09_001
     docker push ericlendvai/harbour_basic:latest
 
-    docker push ericlendvai/harbour_curl_hb-orm_hb-vfp_hb-fastcgi_apache_odbc-postgresql:2023_09_09_001
-    docker push ericlendvai/harbour_curl_hb-orm_hb-vfp_hb-fastcgi_apache_odbc-postgresql:latest
+    docker push ericlendvai/harbour_curl_hb-orm_hb-el_hb-fastcgi_apache_odbc-postgresql:2023_09_09_001
+    docker push ericlendvai/harbour_curl_hb-orm_hb-el_hb-fastcgi_apache_odbc-postgresql:latest
 
-    docker push ericlendvai/harbour_curl_hb-orm_hb-vfp_odbc-postgresql:2023_09_09_001
-    docker push ericlendvai/harbour_curl_hb-orm_hb-vfp_odbc-postgresql:latest
+    docker push ericlendvai/harbour_curl_hb-orm_hb-el_odbc-postgresql:2023_09_09_001
+    docker push ericlendvai/harbour_curl_hb-orm_hb-el_odbc-postgresql:latest
 

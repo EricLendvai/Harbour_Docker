@@ -13,17 +13,14 @@ RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get update
 
 RUN apt-get install -y \
-        libfcgi-dev \
-        libapache2-mod-fcgid \
         git \
         build-essential \
-        unixodbc-dev \
-        apache2 \
         libgpm2 \
         gnupg \
         wget \
         psmisc \
-        libcurl4-openssl-dev
+        libcurl4-openssl-dev \
+        unixodbc-dev
 
 RUN apt-get update && apt-get -y upgrade
 
@@ -50,22 +47,20 @@ RUN ldconfig
 
 # Make some additional supporting libs
 WORKDIR /src
-RUN git clone https://github.com/EricLendvai/Harbour_FastCGI/
-RUN git clone https://github.com/EricLendvai/Harbour_VFP/
+RUN git clone https://github.com/EricLendvai/Harbour_EL/
 RUN git clone https://github.com/EricLendvai/Harbour_ORM/
 
 #Will be used for future web apps builds and when building hb_orm
-ENV HB_VFP_ROOT /src/Harbour_VFP
+ENV HB_EL_ROOT /src/Harbour_EL
 ENV HB_ORM_ROOT /src/Harbour_ORM
-ENV HB_FASTCGI_ROOT /src/Harbour_FastCGI
 
 ENV HB_COMPILER gcc
 
 ENV BuildMode release
 
-WORKDIR /src/Harbour_VFP
+WORKDIR /src/Harbour_EL
 RUN chmod +x ./BuildLIB.sh
-ENV LIBName hb_vfp
+ENV LIBName hb_el
 RUN ./BuildLIB.sh
 
 WORKDIR /src/Harbour_ORM
@@ -76,8 +71,8 @@ RUN ./BuildLIB.sh
 #also build debug libraries
 ENV BuildMode debug
 
-WORKDIR /src/Harbour_VFP
-ENV LIBName hb_vfp
+WORKDIR /src/Harbour_EL
+ENV LIBName hb_el
 RUN ./BuildLIB.sh
 
 WORKDIR /src/Harbour_ORM
